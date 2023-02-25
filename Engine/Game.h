@@ -26,6 +26,7 @@
 #include "Board.h"
 #include "Snake.h"
 #include "Objective.h"
+#include "FrameTimer.h"
 #include <random>
 class Game
 {
@@ -34,8 +35,8 @@ public:
 	Game( const Game& ) = delete;
 	Game& operator=( const Game& ) = delete;
 	void Go();
-	int frameCounter = 0;
-	int moveRate = 30;
+	float frameTimerCounter = 0;
+	float moveRate = 0.6f;
 	bool isBegin = false;
 private:
 	void ComposeFrame();
@@ -47,6 +48,7 @@ private:
 	MainWindow& wnd;
 	Graphics gfx;
 	Board brd;
+	FrameTimer ft;
 	std::mt19937 rng;
 	std::random_device rd;
 	std::uniform_int_distribution <int> xDist;

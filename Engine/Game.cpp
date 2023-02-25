@@ -21,6 +21,7 @@
 #include "MainWindow.h"
 #include "Game.h"
 #include "SpriteCodex.h"
+#include <chrono>
 
 Game::Game(MainWindow& wnd)
 	:
@@ -48,10 +49,10 @@ void Game::Go()
 
 void Game::UpdateModel()
 {
+	frameTimerCounter += ft.Mark();
 	if (wnd.kbd.KeyIsPressed(VK_RETURN)) {
 		isBegin = true;
 	}
-	frameCounter++;
 	if (!snek.end && isBegin) {
 		if (wnd.kbd.KeyIsPressed(VK_RIGHT)) {//A
 			snek.direction = { 1,0 };
@@ -68,11 +69,12 @@ void Game::UpdateModel()
 		if (obj.CheckCol(snek.getHead())) {
 			snek.Grow();
 			obs.BuildANew();
-			moveRate = moveRate - 2;
 		}
 		snek.end = obs.CheckCol(snek.getHead());
-		if (frameCounter % moveRate == 0) {
+		if(frameTimerCounter>moveRate){
 			snek.MoveBy(snek.direction);
+			frameTimerCounter = 0;
+			moveRate -= 0.001f;
 		}
 	}
 }
