@@ -17,7 +17,7 @@ public:
 	bool checkPoisonCollision(const Location& loc_in);
 	void assignPoisonBool(const Location& loc_in);
 	void DrawPoison();
-	void initPoisons();
+	void initPoisons(class Objective& obj);
 private:
 	std::mt19937 rng;
 	std::random_device rd;

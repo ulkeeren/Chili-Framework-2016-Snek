@@ -37,7 +37,7 @@ Game::Game(MainWindow& wnd)
 	obs({ sxDist(rng),syDist(rng) }),
 	snek({sxDist(rng),syDist(rng)})
 {
-	brd.initPoisons();
+	brd.initPoisons(obj);
 }
 
 void Game::Go()

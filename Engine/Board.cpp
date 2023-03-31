@@ -1,5 +1,5 @@
 #include "Board.h"
-
+#include "Objective.h"
 Board::Board(Graphics& gfx)
 	:
 	gfx(gfx),
@@ -88,7 +88,7 @@ void Board::DrawPoison()
 	}
 }
 
-void Board::initPoisons()
+void Board::initPoisons(Objective& obj)
 {
 	for (int i = 0; i < width * height; i++) {
 		poisons[i].x = -1;
@@ -96,9 +96,13 @@ void Board::initPoisons()
 	}
 	for (int i = 0; i < width * height / 4; i++) {
 		Location n = { xDist(rng),yDist(rng) };
-		poisons[n.y * width + n.x] = n;
-		assignPoisonBool(poisons[n.y * width + n.x]);
-		
+		if (n == obj.getLocation()) {
+			continue;
+		}
+		else {
+			poisons[n.y * width + n.x] = n;
+			assignPoisonBool(poisons[n.y * width + n.x]);
+		}	
 	}
 }
 

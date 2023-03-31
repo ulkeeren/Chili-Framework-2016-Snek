@@ -14,6 +14,7 @@ private:
 	std::random_device rd;
 	std::uniform_int_distribution<int> xDist;
 	std::uniform_int_distribution<int> yDist;
+	
 public:
 	Objective(Location loc_in)
 		:
@@ -37,7 +38,9 @@ public:
 			return false;
 		}
 	}
-
+	Location getLocation() {
+		return loc;
+	}
 	};
 class Obstacles {
 private:
