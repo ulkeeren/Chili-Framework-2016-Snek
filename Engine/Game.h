@@ -37,6 +37,7 @@ public:
 	void Go();
 	float frameTimerCounter = 0;
 	float moveRate = 0.3f;
+	float tempMoveRate = 0.0f;
 	bool isBegin = false;
 private:
 	void ComposeFrame();
