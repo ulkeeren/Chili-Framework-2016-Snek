@@ -67,14 +67,17 @@ void Game::UpdateModel()
 		if (wnd.kbd.KeyIsPressed(VK_DOWN)) {//S
 			snek.direction = { 0,1 };
 		}
-		if (wnd.kbd.KeyIsPressed(VK_CONTROL)) {
-			tempMoveRate = moveRate;
-			moveRate = moveRate/5;
+		if(wnd.kbd.KeyIsPressed(VK_CONTROL)) {
 			moveRate = tempMoveRate;
+		}
+		else {
+			moveRate = oldMoveRate;
 		}
 		if (obj.CheckCol(snek.getHead())) {
 			snek.Grow();
 			moveRate -= 0.015f;
+			oldMoveRate -= 0.015f;
+			tempMoveRate = moveRate / 2;
 			obs.BuildANew();
 		}
 		snek.end = obs.CheckCol(snek.getHead()) || ((snek.getHead().x<=0 || snek.getHead().x>=Graphics::ScreenWidth-1) || (snek.getHead().y<=0 || snek.getHead().y>=Graphics::ScreenHeight-1));
@@ -84,6 +87,8 @@ void Game::UpdateModel()
 		}
 		if (brd.checkPoisonCollision(snek.getHead())) {
 			moveRate-= 0.015f;
+			oldMoveRate -= 0.015f;
+			tempMoveRate = moveRate / 2;
 		}
 	}
 }
