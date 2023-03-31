@@ -37,6 +37,7 @@ Game::Game(MainWindow& wnd)
 	obs({ sxDist(rng),syDist(rng) }),
 	snek({sxDist(rng),syDist(rng)})
 {
+	brd.initPoisons();
 }
 
 void Game::Go()
@@ -68,13 +69,16 @@ void Game::UpdateModel()
 		}
 		if (obj.CheckCol(snek.getHead())) {
 			snek.Grow();
+			moveRate -= 0.015f;
 			obs.BuildANew();
 		}
 		snek.end = obs.CheckCol(snek.getHead());
 		if(frameTimerCounter>moveRate){
 			snek.MoveBy(snek.direction);
 			frameTimerCounter = 0;
-			moveRate -= 0.001f;
+		}
+		if (brd.checkPoisonCollision(snek.getHead())) {
+			moveRate-= 0.015f;
 		}
 	}
 }
@@ -86,6 +90,7 @@ void Game::ComposeFrame()
 		obj.Draw(brd);
 		brd.DrawBorder();
 		obs.Draw(brd);
+		brd.DrawPoison();
 		if (snek.end) {
 			SpriteCodex::DrawGameOver(gfx.ScreenWidth / 2, gfx.ScreenHeight / 2, gfx);
 		}

@@ -36,7 +36,7 @@ public:
 	Game& operator=( const Game& ) = delete;
 	void Go();
 	float frameTimerCounter = 0;
-	float moveRate = 0.6f;
+	float moveRate = 0.3f;
 	bool isBegin = false;
 private:
 	void ComposeFrame();
@@ -58,6 +58,7 @@ private:
 	Objective obj;
 	Obstacles obs;
 	Snake snek;
+	
 	/********************************/
 	/*  User Variables              */
 	/********************************/
